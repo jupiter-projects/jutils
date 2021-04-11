@@ -13,8 +13,8 @@ public class Factory<T> {
     private final Map<String, Supplier<T>> types = new HashMap<>();
 
     public Optional<T> make(String type) {
-        var languageSupplier = types.get(type);
-        if (languageSupplier == null) {
+        var typeSupplier = types.get(type);
+        if (typeSupplier == null) {
             if (logger.isLoggable(System.Logger.Level.ERROR)) {
                 logger.log(System.Logger.Level.ERROR, () -> "type " + type + " is unknown");
             }
@@ -22,7 +22,7 @@ public class Factory<T> {
             return Optional.empty();
         }
 
-        return Optional.of(languageSupplier.get());
+        return Optional.of(typeSupplier.get());
     }
 
     public Factory<T> add(String type, Supplier<T> builder) {
